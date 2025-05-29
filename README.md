@@ -2,7 +2,7 @@
 ## Overview
 This project analyzes a chocolate sales dataset using SQL for data extraction and Power BI for visualization. The goal is to uncover insights such as sales trends, customer preferences, and product performance.
 ## Why This Theme
-I chose chocolate sales as the theme because it's a fun, relatable product that allows for realistic business analysis. As someone with experience working in a sweets and treats store, I wanted to connect my real-world retail knowledge with data analytics. This project helped me practice analyzing sales performance, customer behavior, and trends — skills that are highly relevant for business and data analyst roles.
+I chose chocolate sales as the theme because it's a fun, relatable product that allows for realistic business analysis. As someone with experience working in a sweets and treats store, I wanted to connect my real-world retail knowledge with data analytics. This project helped me practice analyzing sales performance and trends — skills that are highly relevant for business and data analyst roles.
 ## Tools Used
 - SQL (for querying and KPI calculation)
 - Power BI (for dashboard creation and data visualization)

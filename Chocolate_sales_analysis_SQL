@@ -1,0 +1,110 @@
+-- Creating the database in MySQL
+CREATE DATABASE chocolate_db;
+USE chocolate_db;
+-- Creating the Table in MySQL
+CREATE TABLE chocolate_sales (
+sales_person VARCHAR(100),
+country VARCHAR(100),
+product VARCHAR(100),
+sale_date DATE,
+amount DECIMAL(10,2),
+boxes_shipped INT
+);
+-- importing my CSV File
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 9.3/Uploads/chocolate2.csv'
+INTO TABLE chocolate_sales
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(sales_person, country, product, sale_date, amount, boxes_shipped);
+SELECT * FROM chocolate_sales LIMIT 10;
+-- 1, Evaluating total and average sales per sales person, number of boxes shipped and Filtering sales persons with total revenue above a certain threshold
+SELECT sales_person, 
+       SUM(amount) AS total_sales, 
+       AVG(amount) AS avg_sales, 
+       SUM(boxes_shipped) AS total_boxes
+FROM chocolate_sales
+GROUP BY sales_person
+HAVING SUM(amount) > 10000;
+-- 2, Time Series Analysis(Monthly or yearly sales trends)
+SELECT DATE_FORMAT(sale_date, '%Y-%m') AS month, 
+       SUM(amount) AS monthly_sales
+FROM chocolate_sales
+GROUP BY DATE_FORMAT(sale_date, '%Y-%m')
+ORDER BY month;
+-- 3, Find top 5 performing countries or products by revenue
+SELECT country, SUM(amount) AS total_sales
+FROM chocolate_sales
+GROUP BY country
+ORDER BY total_sales DESC
+LIMIT 5;
+-- 4. Popular products top 5
+SELECT product, SUM(amount) AS total_sales
+FROM chocolate_sales
+GROUP BY product
+ORDER BY total_sales DESC
+LIMIT 5;
+-- 5. Efficiency Metrics(Analyzing revenue per box shipped per sales person)
+SELECT sales_person,
+       SUM(amount) / SUM(boxes_shipped) AS revenue_per_box
+FROM chocolate_sales
+GROUP BY sales_person;
+-- 6. classifing sales persons based on total revenue into tiers: Gold, Silver, Bronze
+SELECT sales_person, SUM(amount) AS total_sales,
+CASE
+       WHEN SUM(amount) >= 2000 THEN 'Gold'
+       WHEN SUM(amount) >= 1000 THEN 'Silver'
+	   ELSE 'Bronze' 
+       END AS performance_tier
+FROM chocolate_sales
+GROUP BY sales_person;
+-- 7. Data Validation & Cleaning
+-- A. Identifing suspicious records
+-- 7-A-1. Amount = 0 but boxes shipped > 0
+SELECT *
+FROM chocolate_sales
+WHERE amount = 0 AND boxes_shipped > 0;
+-- 7-A-2. Amount is NULL or empty
+SELECT *
+FROM chocolate_sales
+WHERE amount IS NULL OR TRIM(amount) = '';
+-- 7-A-3. Negative values check
+SELECT * FROM chocolate_sales
+WHERE amount < 0 OR box_shippd < 0;
+-- 8.Getting each sales person’s average revenue per box, then filter high performers
+WITH revenue_per_box AS (
+  SELECT sales_person,
+         SUM(amount) / SUM(boxes_shipped) AS avg_rev_per_box
+  FROM chocolate_sales
+  GROUP BY sales_person
+)
+SELECT *
+FROM revenue_per_box
+WHERE avg_rev_per_box > 20 ;
+-- 9.  Low-Selling or Discontinued Products in 2022
+SELECT
+  product,
+  SUM(boxes_shipped) AS total_boxes_shipped,
+  SUM(amount) AS total_sales
+FROM chocolate_sales
+GROUP BY product
+HAVING total_boxes_shipped < 50 OR total_sales < 500;
+
+-- 10. Finding sales persons who sold at least one box 
+SELECT DISTINCT s.sales_person 
+FROM chocolate_sales s
+WHERE EXISTS (
+SELECT 1
+FROM chocolate_sales sc
+WHERE sc.sales_person = s.sales_person AND sc.boxes_shipped > 0
+);
+-- 11. Products Sold Only in a Specific Month in 2022
+SELECT
+  product,
+  COUNT(DISTINCT MONTH(sale_date)) AS months_sold
+FROM chocolate_sales
+WHERE YEAR(sale_date) = 2022
+GROUP BY product
+HAVING months_sold = 1;
+

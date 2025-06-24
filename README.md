@@ -18,6 +18,7 @@ The dataset is sourced from Kaggle. (Note: The exact source is unknown, but it w
 I chose this dataset because it provides a concise yet realistic snapshot of chocolate sales over 8 months in 2022. While limited in duration, the dataset was well-structured and ideal for practicing key analytical techniques such as sales trend analysis, customer behavior insights, and performance benchmarking. Its manageable size allowed for fast iteration with SQL queries and Power BI visualizations, making it a practical choice for a portfolio project focused on demonstrating analytical thinking, business insight generation, and dashboard design.
 ## Dashboard
 <img width="576" alt="Chocolate sales" src="https://github.com/user-attachments/assets/e0529103-c887-4745-85e7-4891845be815" />
+
 ## Key Insights / Findings
 - Smooth Silky Saltly is the highest sales during the 8-month period.
 - The highest sales occurred in January may be due to New Year celebrations and holiday gifting, which often drive increased demand for sweets.

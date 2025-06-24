@@ -20,9 +20,9 @@ I chose this dataset because it provides a concise yet realistic snapshot of cho
 <img width="576" alt="Chocolate sales" src="https://github.com/user-attachments/assets/e0529103-c887-4745-85e7-4891845be815" />
 
 ## Key Insights / Findings
--"Smooth Silky Salty" had the highest sales during the 8-month period, accounting for 5.52% of total sales.
+- "Smooth Silky Salty" had the highest sales during the 8-month period, accounting for 5.52% of total sales.
 - The highest sales occurred in January may be due to New Year celebrations and holiday gifting, which often drive increased demand for sweets.
 - Australia outperformed other countries, accounting for 17.89% of total sales and 21.73% of the top five sales countries—possibly due to a larger market size, stronger consumer demand for chocolate, or effective local distribution and marketing strategies.
 - As sales increase, the total number of boxes sold also rises roughly proportionally.
-- Top sales person in Ches Bonnell, he sold 963K american dollers, accounting for 5.06% of total sales.
+- The top salesperson is Ches Bonnell, who sold $963K, accounting for 5.06% of total sales.
 
